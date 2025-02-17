@@ -5,6 +5,7 @@ import { PORT } from './config/env.js';
 import userRouter from './routes/user.routes.js';
 import authRouter from './routes/auth.routes.js';
 import subscriptionRouter from './routes/subscription.routes.js';
+import connectToDatabase from './database/mongodb.js';
 
 const app = express();
 
@@ -18,8 +19,10 @@ app.get('/', (req, res) => {
 
 const hostname = 'localhost'; // Define hostname as a variable
 
-app.listen(PORT, hostname, () => { // Correct way to use app.listen
+app.listen(PORT, hostname, async () => { // Correct way to use app.listen
     console.log(`Subscription Tracker API is running on http://${hostname}:${PORT}`); // Template literal for cleaner output
+
+    await connectToDatabase();
 });
 
 export default app;
